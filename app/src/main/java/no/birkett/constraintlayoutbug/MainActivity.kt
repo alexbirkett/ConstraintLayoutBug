@@ -1,20 +1,18 @@
 package no.birkett.constraintlayoutbug
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import no.birkett.constraintlayoutbug.databinding.ActivityMainBinding
+import android.view.View
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var databinding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        databinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
     }
 
@@ -36,19 +34,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        databinding.model = Model(
-                "",
-                false,
-                "",
-                false)
 
-        databinding.text1.postDelayed(
-                {
-                    databinding.model = Model(
-                            "hello",
-                            true,
-                            "world",
-                            true)
+        text1.text = ""
+        text1.visibility = View.GONE
+
+        text2.text = ""
+        text2.visibility = View.GONE
+
+        text1.postDelayed({
+                    text1.text = "Hello"
+                    text1.visibility = View.VISIBLE
+
+                    text2.text = "World"
+                    text2.visibility = View.VISIBLE
                 }, 100
         )
     }
